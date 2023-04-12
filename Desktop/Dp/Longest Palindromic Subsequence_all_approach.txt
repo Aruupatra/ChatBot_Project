@@ -1,0 +1,59 @@
+public static int longestPalinSubseq_memo(String s,int m,int n,int[][] dp)
+    {
+        if(m>=n)
+        {
+            return dp[m][n]=m==n?1:0;
+        }
+        
+        if(dp[m][n]!=-1)
+        {
+            return dp[m][n];
+        }
+        
+        if(s.charAt(m)==s.charAt(n))
+        {
+            return dp[m][n]= 2+longestPalinSubseq_memo(s,m+1,n-1,dp);
+        }
+        else
+        {
+            return dp[m][n]=Math.max(longestPalinSubseq_memo(s,m+1,n,dp),longestPalinSubseq_memo(s,m,n-1,dp));
+        }
+    }
+    
+    public static int longestPalinSubseq_tebu(String s,int I,int J,int[][] dp)
+    {
+        
+        int n=s.length();
+        for(int gap=0;gap<n;gap++)
+        {
+            for(int i=0, j=gap;j<n;i++,j++)
+            {
+                if(i>=j)
+                {
+                    dp[i][j]=i==j?1:0;
+                    continue;
+                }
+                
+                
+                 if(s.charAt(i)==s.charAt(j))
+                {
+                   dp[i][j]= 2+dp[i+1][j-1];
+                }
+                else
+                {
+                    dp[i][j]=Math.max(dp[i+1][j],dp[i][j-1]);
+                }
+            }
+        }
+        
+       
+        return dp[I][J];
+    }
+    public int longestPalinSubseq(String s)
+    {
+        //code here
+        int[][] dp=new int[s.length()][s.length()];
+       
+        int ans=longestPalinSubseq_tebu(s,0,s.length()-1,dp);
+        return ans;
+    }

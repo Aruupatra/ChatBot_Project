@@ -1,0 +1,3 @@
+1.we need to detect the object using  mobilenetssd and mobilenet
+2.After detecting the object we need identify the the confidence and from confidence 
+we need to extract co-ordinates

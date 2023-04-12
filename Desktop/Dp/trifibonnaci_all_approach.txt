@@ -1,0 +1,39 @@
+class Solution {
+    public static int trifib_memo(int n,int[] dp)
+    {
+        if(n<=2)
+        {
+            return dp[n]=n==0?0:1;
+        }
+        
+        if(dp[n]!=0)
+        {
+            return dp[n];
+        }
+        
+        return dp[n]=trifib_memo(n-1,dp)+trifib_memo(n-2,dp)+trifib_memo(n-3,dp);
+    }
+    public static int trifib_tebu(int n,int[] dp)
+    {
+        for(int i=0;i<=n;i++)
+        {
+            if(i<=2)
+            {
+                dp[i]=i==0?0:1;
+                continue;
+            }
+            dp[i]=dp[i-1]+dp[i-2]+dp[i-3];
+        }
+        
+        return dp[n];
+    }
+   
+    public int tribonacci(int n) {
+        int[] dp=new int[n+1];
+        //int ans=trifib_memo(n,dp);
+        int ans=trifib_tebu(n,dp);
+        
+        return ans;
+        
+    }
+}

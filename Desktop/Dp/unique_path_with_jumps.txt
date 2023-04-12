@@ -1,0 +1,53 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+    
+    private static int[][] dirs={{0,-1},{-1,0},{-1,-1}};
+
+    public static int uniquePaths(int n, int m) {
+        int ER=n-1;
+        int EC=m-1;
+        int[][] dp=new int[n][m];
+        
+        for(int er=0;er<=ER;er++)
+        {
+            for(int ec=0;ec<=EC;ec++)
+            {
+                  if(er==0&&ec==0)
+                  {
+                      dp[er][ec]=1;
+                     continue;
+                  }
+                  int count=0;
+        for(int d=0;d<dirs.length;d++)
+        {
+            int row=er+dirs[d][0];
+            int col=ec+dirs[d][1];
+            while(row>=0&&col>=0&&row<dp.length&&col<dp[0].length)
+            {
+               count=count+dp[row][col];
+                row=row+dirs[d][0];
+                col=col+dirs[d][1];
+            }
+            
+        }
+                dp[er][ec]=count;
+            }
+        }
+        return dp[ER][EC];
+    }
+	public static void main(String[] args) {
+	Scanner sc=new Scanner(System.in);
+	int n=sc.nextInt();
+	int m=sc.nextInt();
+	int ans=uniquePaths(n,m);
+	System.out.println(ans);
+	}
+}

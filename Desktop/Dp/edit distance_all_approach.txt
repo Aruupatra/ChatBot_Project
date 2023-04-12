@@ -1,0 +1,68 @@
+class Solution {
+    public static int minDistance_memo(String s1,String s2,int i,int j,int[][] dp)
+    {
+        if(i==0||j==0)
+        {
+            return dp[i][j]=i!=0?i:j;
+           
+        }
+        
+        if(dp[i][j]!=-1)
+        {
+            return dp[i][j];
+        }
+        int a=minDistance_memo(s1,s2,i-1,j-1,dp);
+        int b=minDistance_memo(s1,s2,i,j-1,dp);
+        int c=minDistance_memo(s1,s2,i-1,j,dp);
+        if(s1.charAt(i-1)==s2.charAt(j-1))
+        {
+            return dp[i][j]=a;
+        }
+        else
+        {
+        
+            return dp[i][j]=Math.min(Math.min(b,c),a)+1;
+        }
+    
+    }
+     public static int minDistance_tabu(String s1,String s2,int I,int J,int[][] dp)
+    {
+         for(int i=0;i<=I;i++)
+         {
+             for(int j=0;j<=J;j++)
+             {
+                 if(i==0||j==0)
+                  {
+                  dp[i][j]=i!=0?i:j;
+                     continue;
+                  }
+                 int a=dp[i-1][j-1];
+                 int b=dp[i][j-1];
+                 int c=dp[i-1][j];
+                 
+                 
+                 if(s1.charAt(i-1)==s2.charAt(j-1))
+                 {
+                   dp[i][j]=a;
+                 }
+                 else
+                  {
+        
+                  dp[i][j]=Math.min(Math.min(b,c),a)+1;
+                   }
+             }
+         }
+         return dp[I][J];
+           
+    
+    }
+    public int minDistance(String s1, String s2) {
+        
+        int n=s1.length();
+        int m=s2.length();
+        int[][] dp=new int[n+1][m+1];
+        
+        int ans=minDistance_tabu(s1,s2,n,m,dp);
+        return ans;
+    }
+}
